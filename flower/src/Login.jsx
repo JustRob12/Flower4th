@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Login.css';
+import AnimatedBackground from './AnimatedBackground';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login-container">
+      <AnimatedBackground />
       <div className="login-box">
         <h1>Monthsary Gallery</h1>
         <p>Please login to view our memories</p>
