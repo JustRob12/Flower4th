@@ -1,0 +1,58 @@
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.flower {
+  position: absolute;
+  top: -50px;
+  animation: fall linear infinite;
+  opacity: 0.6;
+}
+
+.flower .petal {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  border-radius: 50% 50% 0 50%;
+  transform-origin: bottom right;
+}
+
+.flower .petal:nth-child(1) { transform: rotate(0deg); }
+.flower .petal:nth-child(2) { transform: rotate(90deg); }
+.flower .petal:nth-child(3) { transform: rotate(180deg); }
+.flower .petal:nth-child(4) { transform: rotate(270deg); }
+
+.flower .center {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  background: #ffd3b6;
+  border-radius: 50%;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-50px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(calc(100vh + 50px)) rotate(360deg);
+    opacity: 0;
+  }
+} 

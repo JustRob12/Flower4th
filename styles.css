@@ -19,18 +19,20 @@ body {
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
+    touch-action: none;
 }
 
 .flower_wrapper {
     position: absolute;
     left: 50%;
-    bottom: 2vmin;
+    bottom: 5vh;
+    transform: translateX(-50%) scale(0.8);
     animation: moving-flower-1 4s linear infinite;
 }
 
 .flower_stem {
-    width: 2vmin;
-    height: 65vmin;
+    width: 1.5vmin;
+    height: 50vh;
     background-image: var(--line-color);
     border-radius: 4vmin;
     animation-delay: 0.3s;
@@ -42,8 +44,8 @@ body {
     left: 50%;
     z-index: 5;
     transform: translateX(-50%) rotate(-10deg);
-    width: 20vmin;
-    height: 20vmin;
+    width: 15vmin;
+    height: 15vmin;
     border-radius: 50%;
     background: var(--flower-center);
     animation: open-flower-middle 2s 0.4s backwards;
@@ -53,10 +55,10 @@ body {
     position: absolute;
     left: 50%;
     z-index: 3;
-    bottom: 55vmin;
+    bottom: 40vh;
     transform: translateX(-50%);
-    width: 7vmin;
-    height: 20vmin;
+    width: 5vmin;
+    height: 15vmin;
     background: var(--petal-color);
     clip-path: ellipse(50% 50% at 50% 50%);
     transform-origin: center bottom;
@@ -84,10 +86,10 @@ body {
 .flower_leaf {
     position: absolute;
     left: 60%;
-    bottom: 18vmin;
+    bottom: 15vh;
     transform: translateX(-45%) rotate(80deg);
-    width: 7vmin;
-    height: 17vmin;
+    width: 5vmin;
+    height: 12vmin;
     background: var(--leaf-color);
     clip-path: none;
     border-radius: 10vmin 2vmin 10vmin 2vmin;
@@ -106,9 +108,9 @@ body {
 
 .flower_light {
     position: absolute;
-    bottom: 70vmin;
-    width: 1vmin;
-    height: 1vmin;
+    bottom: 55vh;
+    width: 0.8vmin;
+    height: 0.8vmin;
     background-color: rgb(255, 251, 0);
     border-radius: 50%;
     filter: blur(0.2vmin);
@@ -131,8 +133,8 @@ body {
 .light {
     position: absolute;
     bottom: 0vmin;
-    width: 1vmin;
-    height: 1vmin;
+    width: 0.8vmin;
+    height: 0.8vmin;
     background-color: rgb(255, 251, 0);
     border-radius: 50%;
     filter: blur(0.2vmin);
@@ -155,38 +157,6 @@ body {
 .light-10 { left: 95vmax; animation-delay: 3.5s; }
 .light-11 { left: 75vmax; animation-delay: 3s; }
 .light-12 { left: 85vmax; animation-delay: 0.5s; }
-
-.message {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    z-index: 10;
-}
-
-.message h1 {
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-    font-size: 2.5rem;
-    text-shadow: 0 0 10px rgba(255, 94, 0, 0.8),
-                 0 0 20px rgba(255, 94, 0, 0.5),
-                 0 0 30px rgba(255, 94, 0, 0.3);
-    animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px rgba(255, 94, 0, 0.8),
-                     0 0 20px rgba(255, 94, 0, 0.5),
-                     0 0 30px rgba(255, 94, 0, 0.3);
-    }
-    to {
-        text-shadow: 0 0 20px rgba(255, 94, 0, 0.8),
-                     0 0 30px rgba(255, 94, 0, 0.5),
-                     0 0 40px rgba(255, 94, 0, 0.3);
-    }
-}
 
 @keyframes open-flower-leaves {
     0% {
@@ -263,5 +233,47 @@ body {
         transform: translateY(-60vmin);
         opacity: 0;
         filter: blur(1vmin);
+    }
+}
+
+.anniversary-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    animation: fade-in-text 1s ease-in-out 3s forwards;
+    z-index: 10;
+    pointer-events: none;
+    width: 90%;
+    max-width: 400px;
+}
+
+.anniversary-text h1 {
+    font-size: 6vw;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    margin-bottom: 2vw;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+.anniversary-text h2 {
+    font-size: 5vw;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+@keyframes fade-in-text {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
 } 
