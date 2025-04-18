@@ -1,63 +1,64 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 
 const BackgroundMusic = () => {
-  const [audio] = useState(new Audio('/background-music.mp3')); // You'll need to add your music file
-  const [isPlaying, setIsPlaying] = useState(true); // Set default to true
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = useRef(new Audio('/background-music.mp3'));
+  const audio = audioRef.current;
 
   useEffect(() => {
     audio.loop = true;
-    
-    // Try to play automatically
-    const playPromise = audio.play();
-    
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          // Autoplay started successfully
-          setIsPlaying(true);
-        })
-        .catch(error => {
-          // Autoplay was prevented
-          console.log("Autoplay prevented:", error);
-          setIsPlaying(false);
-        });
-    }
+    audio.volume = 0.5; // Set initial volume to 50%
 
     return () => {
       audio.pause();
       audio.currentTime = 0;
     };
-  }, [audio]);
+  }, []);
 
   useEffect(() => {
     if (isPlaying) {
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Audio playback failed:", error);
-          setIsPlaying(false);
-        });
-      }
+      audio.play().catch(error => {
+        console.error('Error playing audio:', error);
+        setIsPlaying(false);
+      });
     } else {
       audio.pause();
     }
-  }, [isPlaying, audio]);
+  }, [isPlaying]);
 
-  const togglePlay = () => {
+  useEffect(() => {
+    audio.muted = isMuted;
+  }, [isMuted]);
+
+  const toggleMusic = () => {
     setIsPlaying(!isPlaying);
   };
 
+  const toggleMute = (e) => {
+    e.stopPropagation();
+    setIsMuted(!isMuted);
+  };
+
   return (
-    <div className="music-control">
-      <button 
-        onClick={togglePlay}
-        className="music-button"
+    <div className="music-control-container">
+      <button
+        onClick={toggleMusic}
+        className="music-control"
+        title={isPlaying ? 'Pause Music' : 'Play Music'}
+        aria-label={isPlaying ? 'Pause Background Music' : 'Play Background Music'}
       >
-        {isPlaying ? '🔇 Mute' : '🔊 Play Music'}
+        {isPlaying ? <FaPause /> : <FaPlay />}
       </button>
-      <div className="music-status">
-        {!isPlaying && <div className="music-hint">Click to play background music</div>}
-      </div>
+      <button
+        onClick={toggleMute}
+        className="volume-control"
+        title={isMuted ? 'Unmute' : 'Mute'}
+        aria-label={isMuted ? 'Unmute Music' : 'Mute Music'}
+      >
+        {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+      </button>
     </div>
   );
 };
